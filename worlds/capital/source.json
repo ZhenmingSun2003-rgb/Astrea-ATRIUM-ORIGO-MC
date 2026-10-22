@@ -12,5 +12,11 @@
   "status": "SOURCE_ONLY_NOT_TESTED",
   "original_archive_redistributed": false,
   "license_notes": "The author permits normal gameplay and non-profit uses, prohibits sale or profit-driven redistribution, and requires source credit for media.",
-  "image": "https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg"
+  "image": "assets/images/capital/island-moonlight-starryyino-cover.webp",
+  "image_source_file": "I S L A N D.png (from user-supplied original map archive)",
+  "image_source_archive": "ISLAND Moonlight StarryYino 1.16.4.zip",
+  "image_source_sha256": "5736233e36bb091dd8050b643a0aca6cee539167906e8662806c41a71bb2d1bb",
+  "image_sha256": "2a7c4e454637539d6eb775025d3ebb0de5e835938b840d9f67ed9b02e8ff52bb",
+  "image_original_official_embed_url": "https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg",
+  "image_note": "Local 360x203 WebP preview from the author's map ZIP; not the original external gallery screenshot. © StarryYino."
 }

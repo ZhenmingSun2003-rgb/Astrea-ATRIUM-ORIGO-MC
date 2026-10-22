@@ -17,9 +17,9 @@
 
 ## 00. THE WORLD · 世界原点
 
-[![ORIGO 未来主城参考：StarryYino 的 ISLAND Moonlight](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg)](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
+<p align="center"><a href="https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/"><img src="assets/images/capital/island-moonlight-starryyino-cover.webp" width="620" alt="ISLAND Moonlight 原作封面，作者 StarryYino；点击打开 Planet Minecraft 原作品"></a></p>
 
-<sub>© **[StarryYino](https://www.planetminecraft.com/member/starryyino/)** · [ISLAND Moonlight 原作与下载](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)。上图是原作者建筑效果图，**不是 ORIGO 已完工主城**。本站仅引用原站图片地址。</sub>
+<sub>© **[StarryYino](https://www.planetminecraft.com/member/starryyino/)** · [ISLAND Moonlight 原作与下载](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)。上图取自作者随地图压缩包提供的 **I S L A N D.png 原作封面**，本仓库存储了压缩后的本地预览副本（不再依赖外站图片热链）；**不是 ORIGO 已完工主城**。点击封面可前往原作页面。</sub>
 
 **ORIGO** 是 ASTREA 世界观下的 Minecraft 世界。我们不把玩家限制在某一种图像表达中，而是为同一座世界提供三套不同的审美语言——**空灵、奥术、本源**。
 

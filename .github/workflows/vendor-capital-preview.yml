@@ -1,89 +1,42 @@
-name: Vendor ORIGO Capital Preview
-
+name: Verify ORIGO Capital Preview
 on:
   push:
     branches: [main]
     paths:
+      - 'README.md'
+      - 'worlds/capital/**'
+      - 'assets/images/capital/**'
       - '.github/workflows/vendor-capital-preview.yml'
+  pull_request:
+    paths:
+      - 'README.md'
+      - 'worlds/capital/**'
+      - 'assets/images/capital/**'
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  import:
-    name: Cache credited Moonlight preview in repository
+  verify:
     runs-on: ubuntu-latest
-    timeout-minutes: 8
     steps:
       - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.11'
-      - name: Fetch author-published image
-        shell: bash
-        run: |
-          set -euo pipefail
-          mkdir -p assets/images/capital
-          # Download this official, credited image via a read-through image cache.
-          # PlanetMinecraft returns HTTP 403 to GitHub-hosted runners directly.
-          curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
-            --max-time 45 \
-            --user-agent 'Mozilla/5.0 (ORIGO documentation)' \
-            'https://wsrv.nl/?url=static.planetminecraft.com%2Ffiles%2Fimage%2Fminecraft%2Fproject%2F2025%2F821%2F19386983_l.jpg&output=jpg' \
-            --output assets/images/capital/island-moonlight-starryyino.jpg
-          python - <<'PY'
-          from pathlib import Path
-          p=Path('assets/images/capital/island-moonlight-starryyino.jpg')
-          data=p.read_bytes()
-          if len(data) < 10000 or not data.startswith(bytes.fromhex('ffd8ff')) or not data.endswith(bytes.fromhex('ffd9')):
-              raise SystemExit('The downloaded file is not a complete JPEG; refusing to commit.')
-          print('Original JPG retrieved:',len(data),'bytes')
-          PY
-      - name: Update images and credit without third-party hotlinks
-        shell: bash
+      - name: Verify local image and attribution
         run: |
           python - <<'PY'
           from pathlib import Path
-          import json
-          external='https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg'
-          path='assets/images/capital/island-moonlight-starryyino.jpg'
-          for name,local in [('README.md',path),('worlds/capital/README.md','../../'+path)]:
-              f=Path(name)
-              value=f.read_text(encoding='utf-8')
-              if external not in value and local not in value:
-                  raise SystemExit(f'Unexpected README image URL at {name}')
-              value=value.replace(external,local)
-              if name=='README.md':
-                  value=value.replace('本站仅引用原站图片地址。','预览图经本仓库本地存储以确保 GitHub 可视性，原图版权归 StarryYino；点击图片可访问原作品。')
-              else:
-                  value=value.replace('仅引用原站文件。','仓库仅缓存这一张带署名的非商业展示图；点击图片可访问作者原作品。')
-              f.write_text(value,encoding='utf-8')
-          f=Path('worlds/capital/source.json')
-          obj=json.loads(f.read_text(encoding='utf-8'))
-          obj['image_original_url']=external
-          obj['image']=path
-          obj['image_attribution']='© StarryYino. Original Planet Minecraft project: https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/'
-          f.write_text(json.dumps(obj,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
-          credit=Path('docs/CREDITS.md')
-          value=credit.read_text(encoding='utf-8')
-          value=value.replace(
-              '图片均通过原站 URL 引用，不作为 ORIGO 实机实测截图，也不在仓库重新托管。',
-              '三张客户端参考图片仍来自原站 URL；主城预览图来自作者发布页，存储于 `assets/images/capital/island-moonlight-starryyino.jpg` 以确保 GitHub README 可见。原作者 © StarryYino，已保留原作品链接。')
-          credit.write_text(value,encoding='utf-8')
+          import hashlib, json
+          f=Path('assets/images/capital/island-moonlight-starryyino-cover.webp')
+          blob=f.read_bytes()
+          assert blob[:4]==b'RIFF' and blob[8:12]==b'WEBP' and len(blob)>3000
+          assert hashlib.sha256(blob).hexdigest()=='2a7c4e454637539d6eb775025d3ebb0de5e835938b840d9f67ed9b02e8ff52bb'
+          root=Path('README.md').read_text(encoding='utf-8')
+          capital=Path('worlds/capital/README.md').read_text(encoding='utf-8')
+          meta=json.loads(Path('worlds/capital/source.json').read_text(encoding='utf-8'))
+          assert str(f) in root and '../../'+str(f) in capital and meta['image']==str(f)
+          assert 'StarryYino' in root and 'StarryYino' in capital
+          assert 'https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/' in root
+          assert 'https://static.planetminecraft.com/files/image' not in root
+          print('Locally hosted cover verified:',len(blob),'bytes')
           PY
-      - name: Commit credited local image and updated Markdown
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name 'github-actions[bot]'
-          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add assets/images/capital/island-moonlight-starryyino.jpg README.md worlds/capital/README.md worlds/capital/source.json docs/CREDITS.md
-          if git diff --cached --quiet; then
-            echo 'No changes to commit'
-            exit 0
-          fi
-          git commit -m 'fix(readme): vendor StarryYino capital preview locally with attribution'
-          git push origin HEAD:main

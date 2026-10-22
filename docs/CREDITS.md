@@ -23,7 +23,7 @@
 - **Origin**：[Minecraft.fr 对 iterationT 的图文介绍](https://minecraft.fr/le-shader-survival-iterationt-une-atmosphere-unique-dans-minecraft/)
 - **主城**：[StarryYino 在 Planet Minecraft 发布的 ISLAND Moonlight](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
 
-图片均通过原站 URL 引用，不作为 ORIGO 实机实测截图，也不在仓库重新托管。若图片权利人要求删除，应移除相应外链。
+三张客户端风格参考图仍通过各自原站 URL 引用。主城封面图从用户提供的 StarryYino 原地图压缩包中的 I S L A N D.png 压缩制作，保存在 assets/images/capital/；© StarryYino，保留原作者及作品链接。图片不是 ORIGO 实机运行截图。如作者要求删除本地展示图，应予以移除。
 
 ### 使用边界
 

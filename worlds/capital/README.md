@@ -2,7 +2,7 @@
 
 ## ISLAND Moonlight
 
-[![ISLAND Moonlight 作者原作](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg)](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
+[![ISLAND Moonlight 原作者地图包随附封面（StarryYino）](../../assets/images/capital/island-moonlight-starryyino-cover.webp)](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
 
 **建筑、地图原作者：** [**StarryYino**](https://www.planetminecraft.com/member/starryyino/)  
 **原作品下载及版权说明：** [**ISLAND Moonlight — Fantasy Build** / Planet Minecraft](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)  
@@ -10,7 +10,7 @@
 **ORIGO 定位：** 未来服务器**主城建筑核心基础素材**，拟结合 ASTREA 的知识、秩序、好奇与探索主题深化空间设计。  
 **当前状态：** **仅建立来源和迁移档案；未提交地图 ZIP，未迁移、未部署。**
 
-<sub>图为 StarryYino 在 Planet Minecraft 原作中公开的参考效果，© StarryYino；仅引用原站文件。</sub>
+<sub>图源为 StarryYino 原地图压缩包中的 **I S L A N D.png**，本仓库仅保存压缩预览图而非原始地图；© StarryYino。点击图片可访问原作者在 Planet Minecraft 的发布页面。</sub>
 
 ## 署名、使用与限制
 
