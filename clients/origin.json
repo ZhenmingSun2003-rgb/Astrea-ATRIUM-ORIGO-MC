@@ -1,0 +1,40 @@
+{
+  "id": "origin",
+  "name": "ORIGO · Origin",
+  "title_cn": "本源",
+  "pack_version": "0.1.0",
+  "minecraft": "26.2",
+  "fabric_loader": "0.19.5",
+  "components": [
+    {
+      "name": "Sodium",
+      "type": "mod",
+      "project": "sodium",
+      "version_id": "xJZxADzI",
+      "version": "mc26.2-0.9.2-fabric",
+      "loader": "fabric"
+    },
+    {
+      "name": "Iris Shaders",
+      "type": "mod",
+      "project": "iris",
+      "version_id": "gxZWWnKH",
+      "version": "1.11.4+26.2-fabric",
+      "loader": "fabric"
+    },
+    {
+      "name": "Vanilla Experience+",
+      "type": "resourcepack",
+      "project": "vanilla-exp",
+      "version_id": "UBuTOpY1",
+      "version": "v2.0"
+    }
+  ],
+  "manual_shader": {
+    "name": "iterationT",
+    "version": "3.2.0",
+    "url": "https://www.minegraph.cn/shaderpacks/12",
+    "reason": "尚未确认可依法自动分发的官方文件地址；由玩家下载后放入 shaderpacks/"
+  },
+  "notes": "精修原版；光影 iterationT 3.2.0 需要手工安装。建议 JVM 6GiB、渲染距离 10 chunks；不包含 Faithful。"
+}
