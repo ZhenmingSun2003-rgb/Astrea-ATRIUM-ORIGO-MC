@@ -17,7 +17,7 @@
 
 ## 00. THE WORLD · 世界原点
 
-![ORIGO 未来主城参考：StarryYino 的 ISLAND Moonlight](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386984_l.webp)
+[![ORIGO 未来主城参考：StarryYino 的 ISLAND Moonlight](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg)](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
 
 <sub>© **[StarryYino](https://www.planetminecraft.com/member/starryyino/)** · [ISLAND Moonlight 原作与下载](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)。上图是原作者建筑效果图，**不是 ORIGO 已完工主城**。本站仅引用原站图片地址。</sub>
 
