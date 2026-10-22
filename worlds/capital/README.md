@@ -2,7 +2,7 @@
 
 ## ISLAND Moonlight
 
-![ISLAND Moonlight 作者原作](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386984_l.webp)
+[![ISLAND Moonlight 作者原作](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg)](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)
 
 **建筑、地图原作者：** [**StarryYino**](https://www.planetminecraft.com/member/starryyino/)  
 **原作品下载及版权说明：** [**ISLAND Moonlight — Fantasy Build** / Planet Minecraft](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)  
