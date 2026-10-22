@@ -27,11 +27,12 @@ jobs:
         run: |
           set -euo pipefail
           mkdir -p assets/images/capital
+          # Download this official, credited image via a read-through image cache.
+          # PlanetMinecraft returns HTTP 403 to GitHub-hosted runners directly.
           curl --fail --location --silent --show-error --retry 3 --retry-delay 2 \
             --max-time 45 \
-            --user-agent 'Mozilla/5.0 (compatible; ORIGO-MC/1.0; project documentation)' \
-            --header 'Referer: https://www.planetminecraft.com/' \
-            'https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386983_l.jpg' \
+            --user-agent 'Mozilla/5.0 (ORIGO documentation)' \
+            'https://wsrv.nl/?url=static.planetminecraft.com%2Ffiles%2Fimage%2Fminecraft%2Fproject%2F2025%2F821%2F19386983_l.jpg&output=jpg' \
             --output assets/images/capital/island-moonlight-starryyino.jpg
           python - <<'PY'
           from pathlib import Path
