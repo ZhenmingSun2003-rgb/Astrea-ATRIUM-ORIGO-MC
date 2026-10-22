@@ -11,16 +11,14 @@
       "type": "mod",
       "project": "sodium",
       "version_id": "xJZxADzI",
-      "version": "mc26.2-0.9.2-fabric",
-      "loader": "fabric"
+      "version": "mc26.2-0.9.2-fabric"
     },
     {
-      "name": "Iris Shaders",
+      "name": "Iris",
       "type": "mod",
       "project": "iris",
       "version_id": "gxZWWnKH",
-      "version": "1.11.4+26.2-fabric",
-      "loader": "fabric"
+      "version": "1.11.4+26.2-fabric"
     },
     {
       "name": "Vanilla Experience+",
@@ -34,7 +32,7 @@
     "name": "iterationT",
     "version": "3.2.0",
     "url": "https://www.minegraph.cn/shaderpacks/12",
-    "reason": "尚未确认可依法自动分发的官方文件地址；由玩家下载后放入 shaderpacks/"
+    "reason": "需手动获取，未核实可在 Modrinth 自动分发的文件链接及许可。"
   },
-  "notes": "精修原版；光影 iterationT 3.2.0 需要手工安装。建议 JVM 6GiB、渲染距离 10 chunks；不包含 Faithful。"
+  "notes": "Vanilla Experience+ v2.0 + iterationT 3.2.0（手动）；建议 6GiB JVM / 10 chunks。"
 }

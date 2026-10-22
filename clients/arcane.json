@@ -11,23 +11,21 @@
       "type": "mod",
       "project": "sodium",
       "version_id": "xJZxADzI",
-      "version": "mc26.2-0.9.2-fabric",
-      "loader": "fabric"
+      "version": "mc26.2-0.9.2-fabric"
     },
     {
-      "name": "Iris Shaders",
+      "name": "Iris",
       "type": "mod",
       "project": "iris",
       "version_id": "gxZWWnKH",
-      "version": "1.11.4+26.2-fabric",
-      "loader": "fabric"
+      "version": "1.11.4+26.2-fabric"
     },
     {
       "name": "Alacrity",
       "type": "resourcepack",
       "project": "alacrity",
-      "version_id": null,
-      "version": "latest-compatible-release"
+      "version_number": "39",
+      "version": "Update #39"
     },
     {
       "name": "BSL Shaders",
@@ -38,5 +36,5 @@
     }
   ],
   "manual_shader": null,
-  "notes": "古典奇幻与 RPG 氛围；材质 32×，默认 BSL 10.1.8。"
+  "notes": "Alacrity 32× + BSL 10.1.8：中世纪与魔法视觉。"
 }

@@ -1,0 +1,16 @@
+dist/
+*.mrpack
+__pycache__/
+*.py[cod]
+.venv/
+.env
+.DS_Store
+worlds/**/*.zip
+worlds/**/*.rar
+worlds/**/*.7z
+worlds/**/level.dat
+worlds/**/region/
+.minecraft/
+saves/
+logs/
+crash-reports/

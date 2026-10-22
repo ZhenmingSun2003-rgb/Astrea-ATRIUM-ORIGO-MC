@@ -1,0 +1,51 @@
+name: Build ORIGO Clients
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'clients/**'
+      - 'scripts/build_clients.py'
+      - 'tests/**'
+      - '.github/workflows/build-clients.yml'
+  pull_request:
+    paths:
+      - 'clients/**'
+      - 'scripts/build_clients.py'
+      - 'tests/**'
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Offline tests
+        run: python -m unittest discover -s tests -v
+      - name: Build all pinned client manifests
+        run: python scripts/build_clients.py --all
+      - name: Verify archives
+        run: |
+          python - <<'PY'
+          import glob, json, zipfile
+          packs = glob.glob("dist/*.mrpack")
+          assert len(packs) == 3, packs
+          for pack in packs:
+              with zipfile.ZipFile(pack) as arc:
+                  index = json.loads(arc.read("modrinth.index.json"))
+                  assert index["formatVersion"] == 1
+                  assert index["dependencies"]["minecraft"] == "26.2"
+                  assert index["files"]
+              print(pack, len(index["files"]), "dependencies")
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ORIGO-clients-v0.1.0
+          path: dist/*.mrpack
+          if-no-files-found: error
+          retention-days: 30
