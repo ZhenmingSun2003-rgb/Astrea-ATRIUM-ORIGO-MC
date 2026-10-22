@@ -1,89 +1,207 @@
-# ASTREA · ORIGO
+<div align="center">
 
-> **From curiosity, a world begins.**  
-> 从好奇出发，让世界诞生。
+<sub>A S T R E A &nbsp; / &nbsp; A T R I U M</sub>
 
-**ORIGO** 是 ASTREA 世界观下的 Minecraft 世界；**ATRIUM** 是承载、部署和管理该世界的基础设施。本仓库用于记录 ORIGO 的客户端发行配置、构建流程，以及未来接入深圳 ATRIUM 主控/Worker 系统的服务器侧工程。
+# O R I G O
+### 一个世界，三种观看方式
 
-当前阶段：**客户端视觉方案 v0.1（配置确定，尚待完整联机实测）**。本仓库并不宣称已经部署服务器，也不包含 Minecraft 本体或第三方资源的重新分发副本。
+**Minecraft Java 26.2** · **Fabric / Sodium / Iris** · **Visual Foundation v0.1.0**
 
-## 三种客户端 · 同一个世界
+*好奇即美德，求知即正义。*
 
-三种客户端都是 **Minecraft Java Edition 26.2**，共用 **Fabric + Sodium + Iris**，预计连接同一 ORIGO Java 服务器。它们仅在本地纹理、光影和性能取向上不同，不对应三个不同的存档或服务器。
+[客户端手册](clients/README.md) · [主城原作](worlds/capital/README.md) · [开发路线](docs/ROADMAP.md) · [作者鸣谢](docs/CREDITS.md)
 
-| 发行配置 | 视觉定位 | 材质包 | 光影包 |
-| --- | --- | --- | --- |
-| **ORIGO · Ethereal** | 清新、柔和、简洁，偏童话式的探索与建造 | [Dandelion X](https://modrinth.com/resourcepack/dandelion-x/version/nBLlBjME) 16×（26.2） | [Complementary Reimagined](https://modrinth.com/shader/complementary-reimagined) |
-| **ORIGO · Arcane** | 中世纪魔法、RPG 与细节丰富的建筑美学 | [Alacrity](https://modrinth.com/resourcepack/alacrity) 32×（适配 26.2） | [BSL Shaders](https://modrinth.com/shader/bsl-shaders/version/Y68yiql9) 10.1.8 |
-| **ORIGO · Origin** | 保留原版形态的精修质感，以光影塑造现实感 | [Vanilla Experience+](https://modrinth.com/resourcepack/vanilla-exp/version/UBuTOpY1) v2.0 | [iterationT](https://www.minegraph.cn/shaderpacks/12) 3.2.0 |
-
-**已确认的取舍：** Origin 采用 Vanilla Experience+ v2.0，**不使用先前讨论的 Faithful 32×**；Arcane 默认 BSL 10.1.8，Complementary 仅用于早期方案对比；Ethereal 选择 Complementary **Reimagined**（不是 Unbound）。Astraliyte's Animated Textures 等额外资源目前不属于三套正式配置。
-
-## 体验定位
-
-### Ethereal · 空灵
-
-适合长期生存、探索与轻快的建筑创作。Dandelion X 提供统一的色彩语言，Complementary Reimagined 保留 Minecraft 的风格化外观。它是三套中的**相对轻量视觉方案**，但并不意味着对所有电脑都能保持固定帧率。
-
-### Arcane · 奥术
-
-强调魔法、古典建筑和沉浸氛围。Alacrity 的 32× 纹理、立体细节与 BSL 的光照组成奇幻式观感。相较于 Ethereal，材质细节和特效可能需要更高的图形性能。
-
-### Origin · 本源
-
-保留熟悉的原版 Minecraft 语言，以 Vanilla Experience+ 统一修饰材质与交互细节，以 iterationT 3.2.0 创造更鲜明的光照与空间氛围。**Origin 的初始建议**是 JVM 分配 6 GiB 内存，渲染距离 10 chunks；这是配置建议，不是客户端或服务器强制要求。
-
-## 仓库内容
-
-```text
-.
-├── README.md                        # 项目中文首页
-├── clients/
-│   ├── ethereal.json                # Ethereal 客户端配置清单
-│   ├── arcane.json                  # Arcane 客户端配置清单
-│   ├── origin.json                  # Origin 客户端配置清单
-│   └── README.md                    # 安装、限制和来源说明
-├── scripts/
-│   └── build_clients.py             # 生成三个 .mrpack 的构建脚本
-├── tests/
-│   └── test_build_clients.py        # 离线单元测试
-└── .github/workflows/
-    └── build-clients.yml            # 自动构建与打包
-```
-
-### 构建 Modrinth 客户端导入包
-
-建议使用 **Python 3.10+**。构建时需要联网访问 Modrinth API；此过程**不会**下载、重新托管或打包受版权保护的第三方材质/光影原始文件，而是在 `.mrpack` 内写入原作者的下载地址及哈希。
-
-```bash
-python scripts/build_clients.py --all
-```
-
-产物在 `dist/`，共三个 `.mrpack`：
-
-- `ORIGO-Ethereal-0.1.0.mrpack`
-- `ORIGO-Arcane-0.1.0.mrpack`
-- `ORIGO-Origin-0.1.0.mrpack`
-
-可在支持 Modrinth modpack 导入格式的启动器中使用。导入包负责 Fabric、Sodium、Iris 及已确认可以从 Modrinth 官方下载的资源；**Origin 的 iterationT 3.2.0 必须由使用者通过作者发布页取得并手动放到实例的 `shaderpacks/`，之后在游戏内选择**。这不是替换光影，而是由于尚未验证其可用于自动分发的官方文件链接与许可，因此不随导入包分发。详见 [客户端说明](clients/README.md)。
-
-```bash
-python -m unittest discover -s tests -v
-```
-
-> `dist/` 是生成目录。仓库保存构建代码和清单，CI 生成可下载的构建工件；需要发布正式发行版时，先完成实机验证和授权检查。
-
-## 客户端与服务器的边界
-
-- **客户端侧：** Fabric / Sodium / Iris / 材质包 / 光影包，只影响本地渲染与体验；不要求玩家改装服务器。
-- **服务器侧（规划）：** ORIGO Java 世界作为深圳 **ATRIUM** 下的独立服务模块运行，由 ATRIUM 负责生命周期、权限、备份和远程管理；具体部署、插件和网络规则须在后续服务器工程中确认。
-- **联机兼容性：** 三套 Java 26.2 客户端的目标是一服互通，实际互通、资源加载与帧率尚未完成联机测试；版本、服务端协议和必要依赖应在上线前锁定并核验。
-
-## 版权与第三方项目
-
-Minecraft、Fabric、Sodium、Iris、资源包和光影包各归对应作者／权利人所有。**本仓库的清单、脚本及文档不授予任何第三方资源的重新分发权。** 请遵守各项目下载页面的许可和条款，尤其不要将保留所有权利的 Alacrity、BSL 等直接复制进公开仓库。资源来源及特殊处理见 [clients/README.md](clients/README.md)。
+</div>
 
 ---
 
-**ASTREA** · **ATRIUM** / **ORIGO**  
-*好奇即美德，求知即正义。*
+## 00. THE WORLD · 世界原点
+
+![ORIGO 未来主城参考：StarryYino 的 ISLAND Moonlight](https://static.planetminecraft.com/files/image/minecraft/project/2025/821/19386984_l.webp)
+
+<sub>© **[StarryYino](https://www.planetminecraft.com/member/starryyino/)** · [ISLAND Moonlight 原作与下载](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/)。上图是原作者建筑效果图，**不是 ORIGO 已完工主城**。本站仅引用原站图片地址。</sub>
+
+**ORIGO** 是 ASTREA 世界观下的 Minecraft 世界。我们不把玩家限制在某一种图像表达中，而是为同一座世界提供三套不同的审美语言——**空灵、奥术、本源**。
+
+**ATRIUM** 是承载 ORIGO 的系统基础设施。未来服务器将作为 ATRIUM **深圳首期单站点部署**中的 Minecraft 服务模块，接受统一的生命周期、权限、备份与远程管理。本仓库优先维护公开的 **客户端发行工程**，不承载服务器凭据、管理接口或私人世界数据。
+
+> **项目状态**：三套视觉选型、版本锁定和构建流程已建立；目前仍是 **v0.1.0 预览配置**。尚未完成实机性能基准、联机兼容性和旧版主城地图迁移测试。所有硬件档位属于规划建议，不是实测帧率保证。
+
+## 01. THREE VISIONS · 三种视界
+
+<table>
+  <tr>
+    <th width="33%">I · ETHEREAL / 空灵</th>
+    <th width="33%">II · ARCANE / 奥术</th>
+    <th width="34%">III · ORIGIN / 本源</th>
+  </tr>
+  <tr>
+    <td><img src="https://media.forgecdn.net/attachments/338/495/2021-02-04_20.jpg" alt="Dandelion X 纹理参考场景"></td>
+    <td><img src="https://cdn.modrinth.com/data/PUUpX2qq/images/2b8291d8f58d8e137ab3b764a6e163a0bd176e36.webp" alt="Alacrity 中世纪建筑参考场景"></td>
+    <td><img src="https://minecraft.fr/wp-content/uploads/2025/09/ruines-foret-lumineuse-shader-iterationt-minecraft.jpg" alt="iterationT 光影表现参考场景"></td>
+  </tr>
+  <tr>
+    <td>轻盈 · 柔和 · 童话式探索</td>
+    <td>古典 · 细致 · 魔法幻想</td>
+    <td>原版精修 · 写实光影 · 沉浸</td>
+  </tr>
+  <tr>
+    <td>Dandelion X 26.2 / 16×<br>Complementary Reimagined r5.9.3</td>
+    <td>Alacrity Update #39 / 32×<br>BSL Shaders 10.1.8</td>
+    <td>Vanilla Experience+ v2.0 / 16×<br>iterationT 3.2.0（须手动安装）</td>
+  </tr>
+  <tr>
+    <td><a href="clients/ethereal.json">版本锁定清单 →</a></td>
+    <td><a href="clients/arcane.json">版本锁定清单 →</a></td>
+    <td><a href="clients/origin.json">版本锁定清单 →</a></td>
+  </tr>
+</table>
+
+<sub>三张图来自 [Dandelion X 画廊](https://www.curseforge.com/minecraft/texture-packs/dandelion-x/gallery)、[Alacrity 官方画廊](https://modrinth.com/resourcepack/alacrity/gallery) 与 [Minecraft.fr 的 iterationT 展示](https://minecraft.fr/le-shader-survival-iterationt-une-atmosphere-unique-dans-minecraft/)。它们**只说明单项资源的美术效果**，不是上述两两组合的实机测评截图。原作权利归各作者。</sub>
+
+### I / ETHEREAL — 空灵
+
+*在晨雾、花野与温柔色彩里探索。*
+
+Dandelion X 以干净、统一的色盘和友好的纹理设计为核心，适合日常生存、探索、花园与轻快建筑；Complementary **Reimagined** 通过更自然的光影增强层次，同时保留游戏的经典外观。视觉上它是三套之中较轻盈的一套，但**有光影就仍会占用 GPU**。
+
+| 项目 | 配置 |
+| --- | --- |
+| 材质包 | [Dandelion X 26.2](https://modrinth.com/resourcepack/dandelion-x/version/nBLlBjME)，16× |
+| 光影包 | [Complementary Reimagined r5.9.3](https://modrinth.com/shader/complementary-reimagined/version/Bqen1mJX)（不是 Unbound） |
+| 体验侧重 | 柔和统一的景观、自然探索、轻量化画面 |
+| **参考入门硬件** | 16 GB RAM、GTX 1650 / RX 580 级独显 |
+| **舒适档位** | RTX 2060 / RTX 3060 或同级独显及以上 |
+| JVM / 初始视距 | **4 GiB** / 8–12 chunks；光影从 Low / Medium 试起 |
+
+### II / ARCANE — 奥术
+
+*为浮空城、古堡和神秘的魔法图书馆而生。*
+
+Alacrity 使用 32× 纹理，强化石材、木构、植被和部分立体模型的复杂性；BSL 在照明、阴影和空气感上构造温暖而带戏剧性的画面。这套配置最适合 **ORIGO 未来主城的奇幻古典建筑**。
+
+| 项目 | 配置 |
+| --- | --- |
+| 材质包 | [Alacrity Update #39](https://modrinth.com/resourcepack/alacrity/version/39)，32× |
+| 光影包 | [BSL Shaders 10.1.8](https://modrinth.com/shader/bsl-shaders/version/Y68yiql9) |
+| 体验侧重 | RPG 奇幻、美术细节、室内光影、城堡景观 |
+| **参考入门硬件** | 16 GB RAM、RTX 2060 / RX 6600 级独显 |
+| **舒适档位** | RTX 3060 / RTX 4060、RX 6700 XT 或同级 |
+| JVM / 初始视距 | **5–6 GiB** / 8–12 chunks；BSL 先用 Medium |
+
+后续可能通过经测试的 EMF / ETF / Continuity 等优化一些 Alacrity 扩展效果；它们**当前还没有被加入发行包**。
+
+### III / ORIGIN — 本源
+
+*熟悉的原版，被新的光线重新书写。*
+
+Vanilla Experience+ 对 Minecraft 经典外观进行克制的修整，而 **iterationT 3.2.0** 强化体积雾、云、阴影、反射和整体空间气氛。Origin 已正式决定采用 **Vanilla Experience+**，**不再使用 Faithful 32×**。
+
+| 项目 | 配置 |
+| --- | --- |
+| 材质包 | [Vanilla Experience+ v2.0](https://modrinth.com/resourcepack/vanilla-exp/version/UBuTOpY1)，16× |
+| 光影包 | [iterationT 3.2.0](https://www.minegraph.cn/shaderpacks/12)，**玩家手动下载和安装，不随发行包分发** |
+| 体验侧重 | 高沉浸式原版、风景、写实光照、探索摄影 |
+| **参考入门硬件** | 16 GB RAM、RTX 3060 / RX 6700 XT 级独显 |
+| **舒适档位** | RTX 4070 / RX 7800 XT 或同级及以上 |
+| JVM / 初始视距 | **6 GiB** / **10 chunks**；先降低体积云和阴影质量 |
+
+iterationT 发布信息注明暂不支持 macOS / Apple Silicon；对 Minecraft 26.2 + Iris 的具体兼容性仍须在本项目中实测验证。手动安装是出于下载来源及分发边界，并非随意替换已选光影。
+
+### 硬件选择速览
+
+| 维度 | ETHEREAL | ARCANE | ORIGIN |
+| --- | --- | --- | --- |
+| 风格 | 色彩与构图 | 纹理细节 | 真实感光照 |
+| 材质分辨率 | 16× | 32× | 16× |
+| RAM 建议 | 16 GB | 16–32 GB | 16–32 GB |
+| JVM 建议 | 4 GiB | 5–6 GiB | 6 GiB |
+| GPU 规划起点 | GTX 1650 / RX 580 | RTX 2060 / RX 6600 | RTX 3060 / RX 6700 XT |
+| 光影关闭后 | 可游玩 | 可游玩 | 可游玩，缺少主要视觉特征 |
+
+<sub>这些型号是**1080p 规划起点**，不是针对某场景的实测最低规格，未保证具体 FPS；驱动、显卡显存、分辨率、视距、多人主城和光影预设都会影响结果。低配机器可关闭光影保留材质包体验。</sub>
+
+## 02. CLIENT DELIVERY · 安装与发行
+
+三套发行配置均使用 **Minecraft Java 26.2 + Fabric 0.19.5 + Sodium 0.9.2 + Iris 1.11.4**，目标是三套不同美术客户端进入 **同一个 ORIGO 服务器**。
+
+仓库提供符合 Modrinth 规范的 **.mrpack 构建器**：锁定上游版本，向 Modrinth API 查询官方文件的下载地址、SHA1、SHA512 与文件大小，并生成供启动器安装的清单。仓库**不上传第三方材质、光影和 Mod 的二进制副本**。
+
+~~~bash
+# Python 3.10+；构建时需要联网访问 Modrinth API
+python scripts/build_clients.py --all
+
+# 不联网的本地测试
+python -m unittest discover -s tests -v
+~~~
+
+成功后将生成：
+
+- <code>dist/ORIGO-Ethereal-0.1.0.mrpack</code>
+- <code>dist/ORIGO-Arcane-0.1.0.mrpack</code>
+- <code>dist/ORIGO-Origin-0.1.0.mrpack</code>
+
+也可前往 [GitHub Actions / Build ORIGO Clients](https://github.com/ZhenmingSun2003-rgb/Astrea-ATRIUM-ORIGO-MC/actions/workflows/build-clients.yml) 查看构建与下载 Artifacts（实际可下载取决于工作流运行结果）。导入到支持 Modrinth 整合包的启动器后，还需**在游戏内手动启用材质和光影**。
+
+**Origin 额外安装**：根据 [iterationT 原始来源入口](https://www.minegraph.cn/shaderpacks/12) 获取 3.2.0 ZIP，放入实例的 <code>shaderpacks/</code>，不解压，再从 Iris 选择。导入包**没有**包含 iterationT。
+
+完整操作与故障处理：[客户端使用手册 →](clients/README.md)。
+
+## 03. CAPITAL / 主城基础工程
+
+| 名称 | 项目定位 |
+| --- | --- |
+| **ISLAND Moonlight** | 未来主城建筑基础，规划为 ORIGO 玩家公共区域的核心 |
+| **创作者** | [**StarryYino**](https://www.planetminecraft.com/member/starryyino/) |
+| **原作与下载** | [Planet Minecraft 原始项目页](https://www.planetminecraft.com/project/island-moonlight-fantasy-build-download/) |
+| **原版存档** | Minecraft Java Edition **1.16.4** |
+| **未来目标** | 在独立测试存档升级、排障、规划传送与主城公共区，之后再考虑生产部署 |
+| **当前状态** | **已保存出处、版权声明和迁移计划，原始地图 ZIP 未在本仓库重新分发** |
+
+原作者允许正常游戏及非营利使用、禁止出售或营利性再分发，并要求视频等媒体展示署名；如果将来涉及收费、赞助或商业服务器使用，须重新核实许可。1.16.4 → 26.2 跨版本存档更新须在**备份后的测试副本**中完成，不能直接拿原件覆盖服务器。
+
+[阅读 ISLAND Moonlight 主城档案 →](worlds/capital/README.md)
+
+## 04. REPOSITORY / 仓库结构
+
+~~~text
+README.md                         中文发行手册与视觉总览
+clients/
+  ethereal.json                   空灵：上游版本锁定
+  arcane.json                     奥术：上游版本锁定
+  origin.json                     本源：上游版本锁定与手动光影说明
+  README.md                       详细安装说明 / 排障 / 版本边界
+worlds/capital/
+  README.md                       原作者署名、地图使用范围与迁移清单
+  source.json                     主城地图元信息
+scripts/
+  build_clients.py                标准 .mrpack 构建器
+tests/
+  test_build_clients.py           离线自动测试
+docs/
+  ROADMAP.md                      客户端优化 Mod 与版本迭代计划
+  CREDITS.md                      第三方来源、作者与权利说明
+.github/workflows/
+  build-clients.yml               自动验证与构建产物
+.gitignore
+~~~
+
+## 05. NEXT / 接下来
+
+**v0.1 — Visual Foundation**：三种风格、固定依赖、构建流程和主城素材登记。  
+**v0.2 — Comfort & Optimization**：逐步评审客户端性能 Mod、渲染扩展、HUD、地图、UI、无障碍与体验细节。  
+**v0.3 — Benchmark**：三套客户端对同一地图做 FPS / 1% low / 内存 / GPU / 联机兼容测评。  
+**v0.4 — Capital Integration**：主城地图迁移、结构修复、二次设计、源作者署名。  
+**v1.0 — ORIGO Launch**：深圳 ATRIUM 下的 Minecraft 服务部署、备份与恢复、运行监控。
+
+[阅读开发路线与 Mod 纳入准则 →](docs/ROADMAP.md)
+
+---
+
+<div align="center">
+
+**A S T R E A — A T R I U M / O R I G O**
+
+<sub>Minecraft © Mojang / Microsoft；地图 © StarryYino；其他第三方资源及展示图片 © 各自权利人。本站不隶属于 Mojang 或相关原作者，亦不替他们授予再分发权。详见 <a href="docs/CREDITS.md">Credits</a>。</sub>
+
+</div>
